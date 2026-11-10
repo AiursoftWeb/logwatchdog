@@ -1,6 +1,5 @@
 using System.Security.Cryptography;
 using System.Text;
-using System.Text.Json;
 using Aiursoft.AlertCenter.SDK;
 using Aiursoft.AlertCenter.SDK.Models;
 using Microsoft.Extensions.DependencyInjection;

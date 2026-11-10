@@ -1,5 +1,3 @@
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-
 [assembly: DoNotParallelize]
 
 namespace Aiursoft.LogWatchDog.Tests;
