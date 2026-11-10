@@ -1,0 +1,41 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <Version>10.0.0</Version>
+    <TargetFramework>net10.0</TargetFramework>
+    <AssemblyName>log-watchdog</AssemblyName>
+    <RootNamespace>Aiursoft.LogWatchDog</RootNamespace>
+    <IsTestProject>false</IsTestProject>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <IsPackable>true</IsPackable>
+    <PackAsTool>true</PackAsTool>
+    <ToolCommandName>log-watchdog</ToolCommandName>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <SelfContained>false</SelfContained>
+    <PublishTrimmed>false</PublishTrimmed>
+    <PublishReadyToRun>false</PublishReadyToRun>
+    <PublishSingleFile>false</PublishSingleFile>
+    <Company>Aiursoft</Company>
+    <Product>LogWatchDog</Product>
+    <Authors>Aiursoft</Authors>
+    <Description>Monitors HTTP request errors and abnormal traffic through AlertCenter.</Description>
+    <PackageId>Aiursoft.LogWatchDog</PackageId>
+    <PackageTags>cli dotnet monitoring alertcenter</PackageTags>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <PackageProjectUrl>https://gitlab.aiursoft.com/aiursoft/logwatchdog</PackageProjectUrl>
+    <RepositoryType>git</RepositoryType>
+    <RepositoryUrl>https://gitlab.aiursoft.com/aiursoft/logwatchdog.git</RepositoryUrl>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+  </PropertyGroup>
+  <ItemGroup>
+    <None Include="../../README.md" Pack="true" PackagePath="." />
+    <FrameworkReference Include="Microsoft.AspNetCore.App" />
+    <InternalsVisibleTo Include="Aiursoft.LogWatchDog.Tests" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Aiursoft.AlertCenter.SDK" Version="10.10.2" />
+    <PackageReference Include="Aiursoft.ClickhouseSdk" Version="10.0.29" />
+  </ItemGroup>
+</Project>
