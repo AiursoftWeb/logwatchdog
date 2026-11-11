@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <OutputType>Exe</OutputType>
-    <Version>10.0.2</Version>
+    <Version>10.0.3</Version>
     <TargetFramework>net10.0</TargetFramework>
     <AssemblyName>log-watchdog</AssemblyName>
     <RootNamespace>Aiursoft.LogWatchDog</RootNamespace>
@@ -35,7 +35,7 @@
     <InternalsVisibleTo Include="Aiursoft.LogWatchDog.Tests"></InternalsVisibleTo>
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Aiursoft.AlertCenter.SDK" Version="10.10.3" />
+    <PackageReference Include="Aiursoft.AlertCenter.SDK" Version="10.10.4" />
     <PackageReference Include="Aiursoft.ClickhouseSdk" Version="10.0.30" />
   </ItemGroup>
 </Project>
