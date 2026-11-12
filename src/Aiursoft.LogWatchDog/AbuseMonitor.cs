@@ -1,3 +1,4 @@
+using System.Globalization;
 using System.Security.Cryptography;
 using System.Text;
 using Aiursoft.AlertCenter.SDK;
@@ -397,7 +398,7 @@ internal sealed class AbuseReporter(AlertCenterApiClient api, Settings settings,
             else text.AppendLine("  Leading paths were not collected for this request-volume finding; inspect the source in Traffic V2.");
         }
         if (findings.Count > 2) text.AppendLine($"{findings.Count - 2} additional sources are listed in incident metadata > evidence.");
-        if (findings.Count == 0) text.AppendLine($"No newly confirmed source pattern in this scan. Observation through {observation.Through:yyyy-MM-dd HH:mm} UTC; tracked sources remain in incident metadata > evidence.");
+        if (findings.Count == 0) text.AppendLine(CultureInfo.InvariantCulture, $"No newly confirmed source pattern in this scan. Observation through {observation.Through:yyyy-MM-dd HH:mm} UTC; tracked sources remain in incident metadata > evidence.");
         if (confirmed.Length > 0)
         {
             text.AppendLine();
