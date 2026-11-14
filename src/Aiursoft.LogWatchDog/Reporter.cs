@@ -25,6 +25,7 @@ internal sealed class Reporter(AlertCenterApiClient api, Settings settings, Stat
         }
         var byHost = active.GroupBy(x => x.Metadata.Value<string>("host") ?? throw new InvalidDataException("Missing incident host."))
             .ToDictionary(x => x.Key, x => x.Single(), StringComparer.Ordinal);
+        log.LogInformation("HTTP error scan received {ActiveIncidentCount} incidents from AlertCenter on {Server}", active.Count, settings.Server);
         var buckets = recent.Buckets.ToDictionary(x => (x.Host, x.Start), x => x.Counts);
         var hosts = settings.AllHosts
             ? recent.Buckets.Select(x => x.Host).Concat(byHost.Keys).Concat(store.PendingHosts).ToHashSet(StringComparer.Ordinal)
@@ -109,7 +110,13 @@ internal sealed class Reporter(AlertCenterApiClient api, Settings settings, Stat
             incident = (await api.GetIncidentAsync(incident.IncidentId).WaitAsync(ct)).Incident;
             if (incident.Status is "mitigated" or "resolved") { store.Reset(host); return; }
         }
-        if (evidence.Healthy.Step(minute, sample.Healthy(frozen.Alpha), 5))
+        var healthy = sample.Healthy(frozen.Alpha);
+        var recovered = evidence.Healthy.Step(minute, healthy, 5);
+        log.LogInformation("Recovery evidence for {IncidentId} on {Host}: through {Through}, healthy={Healthy}, consecutive={Consecutive}/5, " +
+            "fifteen-minute requests={WindowRequests}, errors={WindowErrors}, five-minute requests={RecentRequests}, errors={RecentErrors}, threshold={Threshold}",
+            incident.IncidentId, host, sample.Through, healthy, evidence.Healthy.Count,
+            sample.Window.Requests, sample.Window.Errors, sample.Five.Requests, sample.Five.Errors, frozen.Alpha / 2);
+        if (recovered)
         {
             await api.MitigateIncidentAsync(incident.IncidentId, new MitigateIncidentRequest
             {
