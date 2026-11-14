@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <OutputType>Exe</OutputType>
-    <Version>10.0.3</Version>
+    <Version>10.0.5</Version>
     <TargetFramework>net10.0</TargetFramework>
     <AssemblyName>log-watchdog</AssemblyName>
     <RootNamespace>Aiursoft.LogWatchDog</RootNamespace>
@@ -23,9 +23,9 @@
     <PackageId>Aiursoft.LogWatchDog</PackageId>
     <PackageTags>cli dotnet monitoring alertcenter</PackageTags>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
-    <PackageProjectUrl>https://gitlab.aiursoft.com/aiursoft/logwatchdog</PackageProjectUrl>
+    <PackageProjectUrl>https://github.com/AiursoftWeb/logwatchdog</PackageProjectUrl>
     <RepositoryType>git</RepositoryType>
-    <RepositoryUrl>https://gitlab.aiursoft.com/aiursoft/logwatchdog.git</RepositoryUrl>
+    <RepositoryUrl>https://github.com/AiursoftWeb/logwatchdog.git</RepositoryUrl>
     <PackageReadmeFile>README.md</PackageReadmeFile>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
   </PropertyGroup>

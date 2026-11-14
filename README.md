@@ -1,6 +1,6 @@
 # LogWatchDog
 
-[![MIT licensed](https://img.shields.io/badge/license-MIT-blue.svg)](https://gitlab.aiursoft.com/aiursoft/logwatchdog/-/blob/master/LICENSE)
+[![MIT licensed](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/AiursoftWeb/logwatchdog/blob/master/LICENSE)
 [![Pipeline stat](https://badge-proxy.aiursoft.com/aiursoft/logwatchdog/badges/master/pipeline.svg)](https://gitlab.aiursoft.com/aiursoft/logwatchdog/-/pipelines)
 [![Test Coverage](https://badge-proxy.aiursoft.com/aiursoft/logwatchdog/badges/master/coverage.svg)](https://gitlab.aiursoft.com/aiursoft/logwatchdog/-/pipelines)
 [![S360 compliance](https://s360.aiursoft.com/badge.svg?project=aiursoft%2Flogwatchdog)](https://s360.aiursoft.com/SupplyChain?tab=projects&project=aiursoft%2Flogwatchdog&scope=baseline&ecosystem=all)
@@ -23,7 +23,7 @@ dotnet tool install --global Aiursoft.LogWatchDog
 
 ## Usage
 
-Set the environment variables described in the [configuration guide](https://gitlab.aiursoft.com/aiursoft/logwatchdog/-/blob/master/docs/configuration.md), then run:
+Set the environment variables described in the [configuration guide](https://github.com/AiursoftWeb/logwatchdog/blob/master/docs/configuration.md), then run:
 
 ```bash
 log-watchdog
