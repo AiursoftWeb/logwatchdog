@@ -36,6 +36,23 @@ Remove the CLI:
 dotnet tool uninstall --global Aiursoft.LogWatchDog
 ```
 
+**Deployment with Docker**
+
+The image is built from this repository and runs the same monitoring process. Put the variables from [Configuration](#configuration) in a private environment file, then run one replica:
+
+```bash
+docker run -d --name log-watchdog \
+  --env-file log-watchdog.env \
+  -v log-watchdog-data:/data \
+  aiursoft/logwatchdog:latest
+```
+
+The container runs as UID 1654. Keep `/data` writable and persistent across replacements so pending reports and monitoring history can resume. To check the last successful scans:
+
+```bash
+docker exec log-watchdog dotnet /app/log-watchdog.dll --healthcheck
+```
+
 ## Usage
 
 Set the environment variables described in the [configuration guide](https://github.com/AiursoftWeb/logwatchdog/blob/master/docs/configuration.md), then run:
