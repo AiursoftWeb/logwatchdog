@@ -71,6 +71,7 @@ internal sealed class Reporter(AlertCenterApiClient api, Settings settings, Stat
                 Content = Describe(host, sample, policy, sample.Blackout ? "Three complete minutes at or above 90% 5xx, with at least five failures." :
                     "The fifteen-minute error rate exceeded the sev3 threshold for three consecutive checks."),
                 OccurredAtUtc = sample.Through.AddMinutes(-15),
+                InvestigateUrl = $"https://{host}",
                 Metadata = new JObject { ["source"] = settings.Source, ["host"] = host, ["server"] = settings.Server, ["policy"] = JObject.FromObject(policy) }
             }).WaitAsync(ct);
             incident = (await api.GetIncidentAsync(response.IncidentId).WaitAsync(ct)).Incident;
