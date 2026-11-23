@@ -250,10 +250,12 @@ internal sealed class AbuseReporter(AlertCenterApiClient api, Settings settings,
         void Queue(HashSet<string> subjects, IReadOnlyList<AbuseImpact> impact)
         {
             var window = findings.Count == 0 ? 5 : findings.Max(x => x.Reason == "high request volume" ? 5 : x.Reason == "steady repeated downloads" ? 20 : 60);
+            var sites = TargetSites(findings, impact);
             var report = new CreateIncidentRequest
             {
                 ReportId = Guid.NewGuid(), Level = impact.Any(x => x.Confirmed) ? "sev2" : "sev3", Title = Title(findings, impact),
                 Content = Describe(observation, findings, impact), OccurredAtUtc = observation.Through.AddMinutes(-window),
+                InvestigateUrl = sites.Length > 0 ? $"https://{sites[0]}" : null,
                 Metadata = new JObject { ["source"] = settings.AbuseSource, ["server"] = settings.Server,
                     ["scope"] = store.Scope, ["kind"] = "request-abuse", ["evidence"] = Evidence(observation, findings, impact) }
             };
