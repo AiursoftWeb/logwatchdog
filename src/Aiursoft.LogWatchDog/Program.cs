@@ -9,6 +9,14 @@ internal static class Program
 {
     internal const string HealthFile = "/tmp/http-error-bridge-health";
 
+    internal static TimeSpan NextScanDelay(DateTimeOffset now)
+    {
+        var next = DateTimeOffset.FromUnixTimeSeconds((now.ToUnixTimeSeconds() / 60 + 1) * 60);
+        // Timer delays truncate fractional milliseconds. Observe the next minute
+        // after its boundary so consecutive evidence never repeats a minute.
+        return next - now + TimeSpan.FromMilliseconds(100);
+    }
+
     public static async Task<int> Main(string[] args)
     {
         if (args is ["--healthcheck"])
@@ -110,8 +118,7 @@ internal sealed class Scanner(IServiceScopeFactory scopes, StateStore store, His
                 store.BreakSequences();
                 log.LogWarning("Scan failed ({ErrorType}); no healthy evidence retained", ex.GetType().Name);
             }
-            var next = DateTimeOffset.FromUnixTimeSeconds((DateTimeOffset.UtcNow.ToUnixTimeSeconds() / 60 + 1) * 60);
-            await Task.Delay(next - DateTimeOffset.UtcNow > TimeSpan.Zero ? next - DateTimeOffset.UtcNow : TimeSpan.Zero, stoppingToken);
+            await Task.Delay(Program.NextScanDelay(DateTimeOffset.UtcNow), stoppingToken);
         }
     }
 }
