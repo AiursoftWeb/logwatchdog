@@ -467,9 +467,7 @@ internal sealed class AbuseScanner(IServiceScopeFactory scopes, AbuseStore store
                 store.BreakSequences();
                 log.LogWarning("Abuse scan failed ({ErrorType}); no recovery evidence assumed", ex.GetType().Name);
             }
-            var next = DateTimeOffset.FromUnixTimeSeconds((clock.GetUtcNow().ToUnixTimeSeconds() / 60 + 1) * 60);
-            var delay = next - clock.GetUtcNow();
-            if (delay > TimeSpan.Zero) await Task.Delay(delay, stoppingToken);
+            await Task.Delay(Program.NextScanDelay(clock.GetUtcNow()), stoppingToken);
         }
     }
 }
